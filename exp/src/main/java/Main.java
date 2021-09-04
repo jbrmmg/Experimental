@@ -1,8 +1,10 @@
+import messages.CameraMessageWrapper;
+import messages.incoming.LoginResponse;
+import messages.incoming.SystemInfoResponse;
 import messages.outgoing.Login;
+import messages.outgoing.SystemInfo;
 
 import java.net.*;
-import java.text.MessageFormat;
-
 
 
 public class Main {
@@ -17,7 +19,15 @@ public class Main {
 
             // Receive reply.
             CameraMessageWrapper incomingMessage = new CameraMessageWrapper(clientSocket.getInputStream());
+            LoginResponse loginResponse = (LoginResponse) incomingMessage.getMessageData();
+            System.out.println(incomingMessage.getMessageData().toString());
 
+            // Get system info
+            SystemInfo systemInfoMessage  = new SystemInfo(loginResponse.getSessionId());
+            CameraMessageWrapper outgoingMessage2 = new CameraMessageWrapper(systemInfoMessage);
+            clientSocket.getOutputStream().write(outgoingMessage2.getByteBufferForMessage().array());
+
+            incomingMessage = new CameraMessageWrapper(clientSocket.getInputStream());
             System.out.println(incomingMessage.getMessageData().toString());
 
             System.out.println("Complete");

@@ -1,7 +1,6 @@
 package messages.outgoing;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import messages.BaseMessageType;
 
 public class Login extends BaseMessageType {

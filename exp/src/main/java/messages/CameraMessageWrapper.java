@@ -1,14 +1,14 @@
+package messages;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import messages.BaseMessageType;
-import messages.incoming.LoginResponse;
 
 public class CameraMessageWrapper {
     private final byte header;
@@ -22,7 +22,7 @@ public class CameraMessageWrapper {
     public static byte ZERO_BYTE = (byte)0;
     public static byte NEW_LINE = (byte)10;
 
-    public CameraMessageWrapper(BaseMessageType messageData) throws JsonProcessingException {
+    public CameraMessageWrapper(BaseMessageType messageData) {
         this.header = HEADER_CODE;
         this.version = 0;
         this.session = 0;

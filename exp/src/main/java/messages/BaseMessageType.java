@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import messages.incoming.LoginResponse;
+import messages.incoming.SystemInfoResponse;
 
 import java.nio.charset.StandardCharsets;
 
@@ -25,6 +26,8 @@ public class BaseMessageType {
         switch(messageType){
             case 1001:
                 return objectMapper.readValue(new String(incomingData, StandardCharsets.UTF_8), LoginResponse.class);
+            case 1021:
+                return objectMapper.readValue(new String(incomingData, StandardCharsets.UTF_8), SystemInfoResponse.class);
         }
 
         throw new IllegalStateException("Unexpected message type received " + messageType);

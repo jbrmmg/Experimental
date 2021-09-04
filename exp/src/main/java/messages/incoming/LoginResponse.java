@@ -78,6 +78,6 @@ public class LoginResponse extends BaseMessageType {
 
     @Override
     public String toString() {
-        return "Return Code:" + this.returnCode;
+        return "Return Code:" + this.returnCode + " " + this.sessionId;
     }
 }
