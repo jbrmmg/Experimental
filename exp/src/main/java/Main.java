@@ -2,6 +2,7 @@ import messages.CameraMessageWrapper;
 import messages.incoming.LoginResponse;
 import messages.incoming.SystemInfoResponse;
 import messages.outgoing.Login;
+import messages.outgoing.Network;
 import messages.outgoing.SystemInfo;
 
 import java.net.*;
@@ -24,12 +25,21 @@ public class Main {
 
             // Get system info
             SystemInfo systemInfoMessage  = new SystemInfo(loginResponse.getSessionId());
-            CameraMessageWrapper outgoingMessage2 = new CameraMessageWrapper(systemInfoMessage);
-            clientSocket.getOutputStream().write(outgoingMessage2.getByteBufferForMessage().array());
+            outgoingMessage = new CameraMessageWrapper(systemInfoMessage);
+            clientSocket.getOutputStream().write(outgoingMessage.getByteBufferForMessage().array());
 
             incomingMessage = new CameraMessageWrapper(clientSocket.getInputStream());
             System.out.println(incomingMessage.getMessageData().toString());
 
+            // Get network info
+            Network network = new Network(loginResponse.getSessionId());
+            outgoingMessage = new CameraMessageWrapper(network);
+            clientSocket.getOutputStream().write(outgoingMessage.getByteBufferForMessage().array());
+
+            incomingMessage = new CameraMessageWrapper(clientSocket.getInputStream());
+            System.out.println(incomingMessage.getMessageData().toString());
+
+            clientSocket.close();
             System.out.println("Complete");
         } catch (Exception e) {
             System.out.println(e.getMessage());

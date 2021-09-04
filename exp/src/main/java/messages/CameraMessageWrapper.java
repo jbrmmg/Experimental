@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import messages.BaseMessageType;
+import messages.outgoing.BaseOutgoingMessage;
 
 public class CameraMessageWrapper {
     private final byte header;
@@ -25,10 +26,17 @@ public class CameraMessageWrapper {
     public CameraMessageWrapper(BaseMessageType messageData) {
         this.header = HEADER_CODE;
         this.version = 0;
-        this.session = 0;
         this.packetCount = 0;
         this.messageType = messageData.getMessageType();
         this.messageData = messageData;
+
+        // Is this a base outgoing message?
+        if(messageData instanceof BaseOutgoingMessage) {
+            BaseOutgoingMessage baseOutgoingMessage = (BaseOutgoingMessage)messageData;
+            this.session = Integer.decode(baseOutgoingMessage.getSessionId());
+        } else {
+            this.session = 0;
+        }
     }
 
     public CameraMessageWrapper(InputStream inputStream) throws IOException {
