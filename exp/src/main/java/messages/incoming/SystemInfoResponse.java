@@ -2,9 +2,8 @@ package messages.incoming;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import messages.BaseMessageType;
 
-public class SystemInfoResponse extends BaseMessageType {
+public class SystemInfoResponse extends BaseResponse {
     public class SystemInfoData {
         private int alarmInChannel;
         private int alarmOutChannel;
@@ -217,44 +216,11 @@ public class SystemInfoResponse extends BaseMessageType {
         }
     }
 
-    private String name;
-    private int returnCode;
-    private String sessionId;
-    private SystemInfoData systemInfo;
+    private final SystemInfoData systemInfo;
 
     public SystemInfoResponse() {
         super((short)1021);
         systemInfo = new SystemInfoData();
-    }
-
-    @JsonGetter("Name")
-    public String getName() {
-        return name;
-    }
-
-    @JsonSetter("Name")
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @JsonGetter("Ret")
-    public int getReturnCode() {
-        return returnCode;
-    }
-
-    @JsonSetter("Ret")
-    public void setReturnCode(int returnCode) {
-        this.returnCode = returnCode;
-    }
-
-    @JsonGetter("SessionID")
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    @JsonSetter("SessionID")
-    public void setSessionID(String sessionId) {
-        this.sessionId = sessionId;
     }
 
     @JsonGetter("SystemInfo")
@@ -264,6 +230,6 @@ public class SystemInfoResponse extends BaseMessageType {
 
     @Override
     public String toString() {
-        return "Return Code:" + this.returnCode + " " + this.systemInfo.getSerialNumber() + " " + this.systemInfo.getSoftwareVersion();
+        return "Return Code:" + this.getReturnCode() + " " + this.systemInfo.getSerialNumber() + " " + this.systemInfo.getSoftwareVersion();
     }
 }

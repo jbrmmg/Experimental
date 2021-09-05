@@ -2,15 +2,12 @@ package messages.incoming;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import messages.BaseMessageType;
 
-public class LoginResponse extends BaseMessageType {
+public class LoginResponse extends BaseResponse {
     private int aliveInterval;
     private int channelNumber;
     private String deviceType;
     private int extraChannel;
-    private int returnCode;
-    private String sessionId;
 
     public LoginResponse() {
         super((short)1001);
@@ -56,28 +53,8 @@ public class LoginResponse extends BaseMessageType {
         this.extraChannel = extraChannel;
     }
 
-    @JsonGetter("Ret")
-    public int getReturnCode() {
-        return returnCode;
-    }
-
-    @JsonSetter("Ret")
-    public void setRet(int returnCode) {
-        this.returnCode = returnCode;
-    }
-
-    @JsonGetter("SessionID")
-    public String getSessionId() {
-        return sessionId;
-    }
-
-    @JsonSetter("SessionID")
-    public void setSessionId(String sessionId) {
-        this.sessionId = sessionId;
-    }
-
     @Override
     public String toString() {
-        return "Return Code:" + this.returnCode + " " + this.sessionId;
+        return "Return Code:" + this.getReturnCode() + " " + this.getSessionId();
     }
 }
