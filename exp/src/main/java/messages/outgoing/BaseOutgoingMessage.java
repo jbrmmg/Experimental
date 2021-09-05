@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import messages.BaseMessageType;
 
 public class BaseOutgoingMessage extends BaseMessageType {
-    private String name;
-    private String sessionId;
+    private final String name;
+    private final String sessionId;
 
     protected BaseOutgoingMessage(short messageType, String name, String sessionId) {
         super(messageType);

@@ -8,7 +8,6 @@ import java.nio.ByteOrder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import messages.BaseMessageType;
 import messages.outgoing.BaseOutgoingMessage;
 
 public class CameraMessageWrapper {
@@ -117,22 +116,27 @@ public class CameraMessageWrapper {
         return byteBuffer;
     }
 
+    @SuppressWarnings("unused")
     public byte getHeader() {
         return header;
     }
 
+    @SuppressWarnings("unused")
     public byte getVersion() {
         return version;
     }
 
+    @SuppressWarnings("unused")
     public int getSession() {
         return session;
     }
 
+    @SuppressWarnings("unused")
     public int getPacketCount() {
         return packetCount;
     }
 
+    @SuppressWarnings("unused")
     public short getMessageType() {
         return messageType;
     }

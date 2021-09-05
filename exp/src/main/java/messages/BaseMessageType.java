@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 public class BaseMessageType {
     @JsonIgnore
-    private short messageType;
+    private final short messageType;
 
     protected BaseMessageType(short messageType) {
         this.messageType = messageType;

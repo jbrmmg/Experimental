@@ -1,6 +1,5 @@
 import messages.CameraMessageWrapper;
 import messages.incoming.LoginResponse;
-import messages.incoming.SystemInfoResponse;
 import messages.outgoing.Login;
 import messages.outgoing.Network;
 import messages.outgoing.SystemInfo;
@@ -11,7 +10,7 @@ import java.net.*;
 public class Main {
     public static void main(String[] args) {
         try {
-            Socket clientSocket = new Socket("192.168.178.108",34567);;
+            Socket clientSocket = new Socket("192.168.178.108",34567);
             Login loginMessage = new Login("admin", "tlJwpbo6");
             CameraMessageWrapper outgoingMessage = new CameraMessageWrapper(loginMessage);
 

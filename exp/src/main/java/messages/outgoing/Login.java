@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import messages.BaseMessageType;
 
 public class Login extends BaseMessageType {
-    private String encryptType;
-    private String loginType;
-    private String password;
-    private String username;
+    private final String encryptType;
+    private final String loginType;
+    private final String password;
+    private final String username;
 
     public Login(String username, String password) {
         super((short)1000);
