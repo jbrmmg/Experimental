@@ -4,13 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jbr.exp.messages.incoming.BaseResponse;
-import com.jbr.exp.messages.incoming.LoginResponse;
-import com.jbr.exp.messages.incoming.NetworkResponse;
-import com.jbr.exp.messages.incoming.SystemInfoResponse;
 import org.reflections.Reflections;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -26,7 +22,7 @@ public class BaseMessageType {
         return messageType;
     }
 
-    private static Map<Short,Class<?>> typeToClassMap = new HashMap<>();
+    private static final Map<Short,Class<?>> typeToClassMap = new HashMap<>();
 
     private static Class<?> getClassForMessageType(short messageType) {
         // Find the class that supports this message type.
@@ -41,6 +37,7 @@ public class BaseMessageType {
 
                 short type = response.getMessageType();
                 if(type == messageType) {
+                    typeToClassMap.put(type,clazz);
                     return clazz;
                 }
             }
@@ -53,7 +50,7 @@ public class BaseMessageType {
 
     public static BaseMessageType getMessageObject(byte[] incomingData, short messageType) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        Class<?> responseClass = null;
+        Class<?> responseClass;
 
         // Is this a known message type?
         if(typeToClassMap.containsKey(messageType)) {
