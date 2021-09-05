@@ -42,4 +42,9 @@ public class BaseResponse extends BaseMessageType {
     public void setSessionID(String sessionId) {
         this.sessionId = sessionId;
     }
+
+    @Override
+    public String toString() {
+        return "Return Code: " + this.getName() + " " + this.getReturnCode();
+    }
 }

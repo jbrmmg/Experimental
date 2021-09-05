@@ -1,8 +1,10 @@
 package com.jbr.exp.messages.incoming;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SystemInfoResponse extends BaseResponse {
     public class SystemInfoData {
         private int alarmInChannel;
