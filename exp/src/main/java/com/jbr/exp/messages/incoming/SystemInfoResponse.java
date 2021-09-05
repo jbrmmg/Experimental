@@ -232,6 +232,6 @@ public class SystemInfoResponse extends BaseResponse {
 
     @Override
     public String toString() {
-        return "Return Code:" + this.getReturnCode() + " " + this.systemInfo.getSerialNumber() + " " + this.systemInfo.getSoftwareVersion();
+        return super.toString() + " " + this.systemInfo.getSerialNumber() + " " + this.systemInfo.getSoftwareVersion();
     }
 }

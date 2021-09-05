@@ -13,6 +13,7 @@ public class LoginResponse extends BaseResponse {
 
     public LoginResponse() {
         super((short)1001);
+        this.setName("Login");
     }
 
     @JsonGetter("AliveInterval")
@@ -57,6 +58,6 @@ public class LoginResponse extends BaseResponse {
 
     @Override
     public String toString() {
-        return "Return Code:" + this.getReturnCode() + " " + this.getSessionId();
+        return super.toString() + " " + this.getSessionId();
     }
 }

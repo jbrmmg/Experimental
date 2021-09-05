@@ -45,6 +45,6 @@ public class BaseResponse extends BaseMessageType {
 
     @Override
     public String toString() {
-        return "Return Code: " + this.getName() + " " + this.getReturnCode();
+        return "Return Code: " + this.getReturnCode() + " " + this.getSessionId() + " " + this.getName();
     }
 }
