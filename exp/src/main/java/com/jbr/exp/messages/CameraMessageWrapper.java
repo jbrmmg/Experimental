@@ -1,4 +1,4 @@
-package messages;
+package com.jbr.exp.messages;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +8,7 @@ import java.nio.ByteOrder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import messages.outgoing.BaseOutgoingMessage;
+import com.jbr.exp.messages.outgoing.BaseOutgoingMessage;
 
 public class CameraMessageWrapper {
     private final byte header;

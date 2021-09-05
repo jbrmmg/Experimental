@@ -1,4 +1,4 @@
-package messages.incoming;
+package com.jbr.exp.messages.incoming;
 
 public class NetworkResponse extends BaseResponse {
 

@@ -1,4 +1,4 @@
-package messages.incoming;
+package com.jbr.exp.messages.incoming;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;

@@ -1,7 +1,7 @@
-package messages.outgoing;
+package com.jbr.exp.messages.outgoing;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import messages.BaseMessageType;
+import com.jbr.exp.messages.BaseMessageType;
 
 public class Login extends BaseMessageType {
     private final String encryptType;

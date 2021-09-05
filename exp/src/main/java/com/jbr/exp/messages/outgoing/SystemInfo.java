@@ -1,4 +1,4 @@
-package messages.outgoing;
+package com.jbr.exp.messages.outgoing;
 
 public class SystemInfo extends BaseOutgoingMessage {
     public SystemInfo(String sessionId) {

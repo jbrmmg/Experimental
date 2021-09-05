@@ -1,8 +1,8 @@
-package messages.incoming;
+package com.jbr.exp.messages.incoming;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import messages.BaseMessageType;
+import com.jbr.exp.messages.BaseMessageType;
 
 public class BaseResponse extends BaseMessageType {
     private String name;

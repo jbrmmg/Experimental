@@ -1,8 +1,8 @@
-import messages.CameraMessageWrapper;
-import messages.incoming.LoginResponse;
-import messages.outgoing.Login;
-import messages.outgoing.Network;
-import messages.outgoing.SystemInfo;
+import com.jbr.exp.messages.CameraMessageWrapper;
+import com.jbr.exp.messages.incoming.LoginResponse;
+import com.jbr.exp.messages.outgoing.Login;
+import com.jbr.exp.messages.outgoing.Network;
+import com.jbr.exp.messages.outgoing.SystemInfo;
 
 import java.net.*;
 
