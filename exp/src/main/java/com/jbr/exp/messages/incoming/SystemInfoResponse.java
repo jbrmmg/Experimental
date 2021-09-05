@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SystemInfoResponse extends BaseResponse {
-    public class SystemInfoData {
+    public static class SystemInfoData {
         private int alarmInChannel;
         private int alarmOutChannel;
         private int audioInChannel;
