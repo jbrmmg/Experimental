@@ -177,21 +177,25 @@ public class SystemInfoResponse extends BaseResponse {
             this.talkOutChannel = talkOutChannel;
         }
 
+        @SuppressWarnings("SpellCheckingInspection")
         @JsonGetter("UpdataTime")
         public String getUpdateTime() {
             return updateTime;
         }
 
+        @SuppressWarnings("SpellCheckingInspection")
         @JsonSetter("UpdataTime")
         public void setUpdateTime(String updateTime) {
             this.updateTime = updateTime;
         }
 
+        @SuppressWarnings("SpellCheckingInspection")
         @JsonGetter("UpdataType")
         public String getUpdateType() {
             return updateType;
         }
 
+        @SuppressWarnings("SpellCheckingInspection")
         @JsonSetter("UpdataType")
         public void setUpdateType(String updateType) {
             this.updateType = updateType;

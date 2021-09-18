@@ -2,7 +2,6 @@ package com.jbr.exp.messages.incoming;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -28,17 +27,12 @@ public class NetworkResponse extends BaseResponse {
         private int udpPort;
         private boolean useHsDownload;
 
-        private InetAddress getInetAddressFromHexString(String ipAsHex) {
-            try {
-                int inetValue = Integer.decode(getHostIP());
+        private InetAddress getInetAddressFromHexString() throws UnknownHostException {
+            int inetValue = Integer.decode(getHostIP());
 
-                byte[] bytes = BigInteger.valueOf(inetValue).toByteArray();
-                ArrayUtils.reverse(bytes);
-                return InetAddress.getByAddress(bytes);
-            } catch (Exception e) {
-            }
-
-            return null;
+            byte[] bytes = BigInteger.valueOf(inetValue).toByteArray();
+            ArrayUtils.reverse(bytes);
+            return InetAddress.getByAddress(bytes);
         }
 
         @JsonGetter("GateWay")
@@ -57,8 +51,8 @@ public class NetworkResponse extends BaseResponse {
         }
 
         @JsonIgnore
-        public InetAddress getHostInetAddress() {
-            return getInetAddressFromHexString(getHostIP());
+        public InetAddress getHostInetAddress() throws UnknownHostException {
+            return getInetAddressFromHexString();
         }
 
         @JsonSetter("HostIP")
@@ -201,6 +195,10 @@ public class NetworkResponse extends BaseResponse {
 
     @Override
     public String toString() {
-        return super.toString() + " " + this.getNetworkInfo().getHostInetAddress();
+        try {
+            return super.toString() + " " + this.getNetworkInfo().getHostInetAddress();
+        } catch (UnknownHostException e) {
+            return super.toString() + " [Failed to get Address]";
+        }
     }
 }

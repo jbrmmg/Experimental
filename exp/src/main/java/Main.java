@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             Socket clientSocket = new Socket("192.168.178.108",34567);
-            Login loginMessage = new Login("admin", "tlJwpbo6");
+            Login loginMessage = new Login("admin", "");
             CameraMessageWrapper outgoingMessage = new CameraMessageWrapper(loginMessage);
 
             // Send message
