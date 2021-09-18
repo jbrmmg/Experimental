@@ -2,6 +2,7 @@ import com.jbr.exp.messages.CameraMessageWrapper;
 import com.jbr.exp.messages.incoming.LoginResponse;
 import com.jbr.exp.messages.outgoing.Login;
 import com.jbr.exp.messages.outgoing.Network;
+import com.jbr.exp.messages.outgoing.SetInfo;
 import com.jbr.exp.messages.outgoing.SystemInfo;
 
 import java.net.*;
@@ -37,6 +38,9 @@ public class Main {
 
             incomingMessage = new CameraMessageWrapper(clientSocket.getInputStream());
             System.out.println(incomingMessage.getMessageData().toString());
+
+            // Set info.
+            SetInfo setInfo = new SetInfo(loginResponse.getSessionId(),"Camera.Param.[0]", "");
 
             clientSocket.close();
             System.out.println("Complete");
