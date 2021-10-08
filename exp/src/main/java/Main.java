@@ -37,7 +37,7 @@ public class Main {
             sendMessage(clientSocket,new Network(loginResponse.getSessionId()));
 
             // Set info.
-            sendMessage(clientSocket,new SetIRCutSwap(loginResponse.getSessionId(), 0));
+//            sendMessage(clientSocket,new SetIRCutSwap(loginResponse.getSessionId(), 1));
 
             clientSocket.close();
             System.out.println("Complete");
