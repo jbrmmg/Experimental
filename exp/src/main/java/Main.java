@@ -1,14 +1,21 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jbr.exp.messages.CameraMessageWrapper;
 import com.jbr.exp.messages.incoming.LoginResponse;
-import com.jbr.exp.messages.outgoing.Login;
-import com.jbr.exp.messages.outgoing.Network;
-import com.jbr.exp.messages.outgoing.SetInfo;
-import com.jbr.exp.messages.outgoing.SystemInfo;
+import com.jbr.exp.messages.outgoing.*;
 
+import java.io.IOException;
 import java.net.*;
 
 
 public class Main {
+    private static void sendMessage(Socket clientSocket, BaseOutgoingMessage specificOutgoingMessage) throws IOException {
+        CameraMessageWrapper outgoingMessage = new CameraMessageWrapper(specificOutgoingMessage);
+        clientSocket.getOutputStream().write(outgoingMessage.getByteBufferForMessage().array());
+
+        CameraMessageWrapper incomingMessage = new CameraMessageWrapper(clientSocket.getInputStream());
+        System.out.println(incomingMessage.getMessageData().toString());
+    }
+
     public static void main(String[] args) {
         try {
             Socket clientSocket = new Socket("192.168.178.108",34567);
@@ -24,23 +31,13 @@ public class Main {
             System.out.println(incomingMessage.getMessageData().toString());
 
             // Get system info
-            SystemInfo systemInfoMessage  = new SystemInfo(loginResponse.getSessionId());
-            outgoingMessage = new CameraMessageWrapper(systemInfoMessage);
-            clientSocket.getOutputStream().write(outgoingMessage.getByteBufferForMessage().array());
-
-            incomingMessage = new CameraMessageWrapper(clientSocket.getInputStream());
-            System.out.println(incomingMessage.getMessageData().toString());
+            sendMessage(clientSocket,new SystemInfo(loginResponse.getSessionId()));
 
             // Get network info
-            Network network = new Network(loginResponse.getSessionId());
-            outgoingMessage = new CameraMessageWrapper(network);
-            clientSocket.getOutputStream().write(outgoingMessage.getByteBufferForMessage().array());
-
-            incomingMessage = new CameraMessageWrapper(clientSocket.getInputStream());
-            System.out.println(incomingMessage.getMessageData().toString());
+            sendMessage(clientSocket,new Network(loginResponse.getSessionId()));
 
             // Set info.
-            SetInfo setInfo = new SetInfo(loginResponse.getSessionId(),"Camera.Param.[0]", "");
+            sendMessage(clientSocket,new SetIRCutSwap(loginResponse.getSessionId(), 0));
 
             clientSocket.close();
             System.out.println("Complete");
