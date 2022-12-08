@@ -25,8 +25,19 @@ public class CallTflApi {
     public void callApi2() {
         try {
             //https://api.tfl.gov.uk/Journey/JourneyResults/{from}/to/{to}
+// metropolitan
+// bakerloo
+// central
+// circle
+// district
+// hammersmith-city
+// jubilee
+// northern
+// piccadilly
+// victoria
+// waterloo-city
 
-            String url = "https://api.tfl.gov.uk/Line/metropolitan/Route/Sequence/inbound?serviceTypes=Regular";
+            String url = "https://api.tfl.gov.uk/Line/bakerloo/Route/Sequence/inbound?serviceTypes=Regular";
             RestTemplate restTemplate = new RestTemplate();
             String result = restTemplate.getForObject(url, String.class);
 
@@ -47,7 +58,10 @@ public class CallTflApi {
             }
 
             for(Map.Entry<String,String> nextId : invalidIds.entrySet()) {
-                log.info(nextId.getKey() + " is missing (" + nextId.getValue() + ")");
+                String id = nextId.getKey().substring(nextId.getKey().length() - 3);
+                String fullId = nextId.getKey();
+                String name = nextId.getValue().replace(" Underground Station","");
+                log.info(id + "," + name + "," + fullId + ",,");
             }
 
             log.info("here");
