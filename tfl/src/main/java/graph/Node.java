@@ -1,4 +1,4 @@
-package com.jbr.exp.tfl.graph;
+package graph;
 
 import java.util.HashMap;
 import java.util.LinkedList;
