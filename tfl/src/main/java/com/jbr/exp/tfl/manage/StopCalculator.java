@@ -68,4 +68,14 @@ public class StopCalculator {
                     ( station.hasZone2() ? station.getZone2() : "") );
         }
     }
+
+    public boolean validateStation(String stationId) {
+        for(Station station : stations.values()) {
+            if(station.getFullId().equals(stationId)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
