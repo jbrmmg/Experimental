@@ -37,7 +37,7 @@ public class CallTflApi {
 // victoria
 // waterloo-city
 
-            String url = "https://api.tfl.gov.uk/Line/central/Route/Sequence/inbound?serviceTypes=Regular";
+            String url = "https://api.tfl.gov.uk/Line/waterloo-city/Route/Sequence/inbound?serviceTypes=Regular";
             RestTemplate restTemplate = new RestTemplate();
             String result = restTemplate.getForObject(url, String.class);
 
