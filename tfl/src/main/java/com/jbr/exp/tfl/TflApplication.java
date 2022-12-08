@@ -1,5 +1,6 @@
 package com.jbr.exp.tfl;
 
+import com.jbr.exp.tfl.manage.CallTflApi;
 import com.jbr.exp.tfl.manage.StopCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -14,9 +15,13 @@ public class TflApplication {
 	@Autowired
 	StopCalculator stopCalculator;
 
+	@Autowired
+	CallTflApi callTflApi;
+
 	@EventListener(ContextRefreshedEvent.class)
 	public void handleContextStartedEvent(ContextRefreshedEvent ctxStartEvt) {
 		stopCalculator.initialise();
+		callTflApi.process();
 	}
 
 	public static void main(String[] args) {

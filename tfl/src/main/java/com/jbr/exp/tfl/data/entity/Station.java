@@ -3,6 +3,7 @@ package com.jbr.exp.tfl.data.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Station {
@@ -17,6 +18,9 @@ public class Station {
 
     @Column(name="zone_2")
     private Integer zone2;
+
+    @Column
+    private String fullId;
 
     public String getId() {
         return id;
@@ -43,10 +47,27 @@ public class Station {
     }
 
     public Integer getZone2() {
+        if(zone2 == null) {
+            return getZone1();
+        }
+
         return zone2;
     }
 
+    public boolean hasZone2() {
+        return zone2 != null;
+    }
+
+
     public void setZone2(Integer zone2) {
         this.zone2 = zone2;
+    }
+
+    public String getFullId() {
+        return fullId;
+    }
+
+    public void setFullId(String fullId) {
+        this.fullId = fullId;
     }
 }
