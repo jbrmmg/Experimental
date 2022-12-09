@@ -3,10 +3,12 @@ package com.jbr.exp.tfl.manage;
 import ch.qos.logback.core.recovery.ResilientOutputStreamBase;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jbr.exp.tfl.data.entity.Station;
 import com.jbr.exp.tfl.manage.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,47 +24,63 @@ public class CallTflApi {
     @Autowired
     StopCalculator stopCalculator;
 
-    public void callApi2() {
+    private ValidRoutesResponse getRouteStops(String line) {
         try {
-            //https://api.tfl.gov.uk/Journey/JourneyResults/{from}/to/{to}
-// metropolitan
-// bakerloo
-// central
-// circle
-// district
-// hammersmith-city
-// jubilee
-// northern
-// piccadilly
-// victoria
-// waterloo-city
-
-            String url = "https://api.tfl.gov.uk/Line/waterloo-city/Route/Sequence/inbound?serviceTypes=Regular";
+            String url = "https://api.tfl.gov.uk/Line/" + line + "/Route/Sequence/inbound?serviceTypes=Regular";
             RestTemplate restTemplate = new RestTemplate();
             String result = restTemplate.getForObject(url, String.class);
 
             ObjectMapper objectMapper = new ObjectMapper();
 
-            ValidRoutesResponse validRoutesResponse = objectMapper.readValue(result, ValidRoutesResponse.class);
+            return objectMapper.readValue(result, ValidRoutesResponse.class);
+        } catch (Exception e) {
+            log.error("Failure",e);
+        }
 
-            // Validate the stations in this route.
-            Map<String,String> invalidIds = new HashMap<>();
-            for(StopPointSequence next : validRoutesResponse.stopPointSequences) {
-                for(RouteStopPoint next2 : next.stopPoint) {
-                    if(!stopCalculator.validateStation(next2.stationId)) {
-                        if(!invalidIds.containsKey(next2.stationId)) {
-                            invalidIds.put(next2.stationId,next2.name);
+        return null;
+    }
+
+    public void callApi2() {
+        try {
+            //https://api.tfl.gov.uk/Journey/JourneyResults/{from}/to/{to}
+
+            Map<String,String> connections = new HashMap<>();
+            for(String nextLine : "metropolitan:MET,bakerloo:BKL,central:CTR,circle:CIR,district:DST,hammersmith-city:HAC,jubilee:JUB,northern:NOR,piccadilly:PIC,victoria:VIC,waterloo-city:WAC".split(",")) {
+                String[] nextLineElements = nextLine.split(":");
+
+                ValidRoutesResponse validRoutesResponse = getRouteStops(nextLineElements[0]);
+
+                // Get the connections.
+                for(StopPointSequence next : validRoutesResponse.stopPointSequences) {
+                    Station previous = null;
+                    for(RouteStopPoint next2 : next.stopPoint) {
+                        Station nextStation = stopCalculator.getStationWithFullId(next2.stationId);
+
+                        if(previous != null) {
+                            String connectionId = Station.getConnectionId(nextStation,previous);
+
+                            if(!connections.containsKey(connectionId)) {
+                                connections.put(connectionId,nextLineElements[1] + "," + nextStation.getId() + "," + previous.getId());
+                            }
                         }
+
+                        previous = nextStation;
                     }
                 }
             }
 
+            for(Map.Entry<String,String> next : connections.entrySet()) {
+                log.info(next.getKey() + "," + next.getValue());
+            }
+
+            /*
             for(Map.Entry<String,String> nextId : invalidIds.entrySet()) {
                 String id = nextId.getKey().substring(nextId.getKey().length() - 3);
                 String fullId = nextId.getKey();
                 String name = nextId.getValue().replace(" Underground Station","");
                 log.info(id + "," + name + "," + fullId + ",,");
             }
+             */
 
             log.info("here");
         } catch(Exception e) {
@@ -104,6 +122,6 @@ public class CallTflApi {
 
     public void process() {
 //        callApi();
-        callApi2();
+//        callApi2();
     }
 }

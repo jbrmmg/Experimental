@@ -61,6 +61,12 @@ databaseChangeLog:
               - column:
                   name: zones
                   type: int
+              - column:
+                  name: station_1
+                  type: varchar(40)
+              - column:
+                  name: station_2
+                  type: varchar(40)
 
         - loadData:
             file: data-lines.csv

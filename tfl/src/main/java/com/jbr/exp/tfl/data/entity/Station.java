@@ -70,4 +70,27 @@ public class Station {
     public void setFullId(String fullId) {
         this.fullId = fullId;
     }
+
+    public static String getConnectionId(Station one, Station two) {
+        return getConnectionId(one.getId(),two.getId());
+    }
+
+    public static String getConnectionId(String one, String two) {
+        if(one.compareTo(two) > 0) {
+            return one + "-" + two;
+        }
+
+        return two + "-" + one;
+    }
+
+    public static int zoneDifference(Station one, Station two) {
+        int[] diffs = new int[4];
+
+        diffs[0] = Math.abs(one.getZone1() - two.getZone1());
+        diffs[1] = Math.abs(one.getZone2() - two.getZone1());
+        diffs[2] = Math.abs(one.getZone1() - two.getZone2());
+        diffs[3] = Math.abs(one.getZone2() - two.getZone2());
+
+        return Math.min(diffs[0],Math.min(diffs[1],Math.min(diffs[2],diffs[3])));
+    }
 }
