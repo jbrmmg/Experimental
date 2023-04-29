@@ -1,0 +1,10 @@
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import jbr.javafx.expjavafx.control.LetterStatus?>
+<?import jbr.javafx.expjavafx.control.Letter?>
+<fx:root type="javafx.scene.layout.VBox"
+         xmlns:fx="http://javafx.com/fxml">
+    <Button text="Click Me" onAction="#doSomething"/>
+    <LetterStatus fx:id="ls1" rightPlace="true"/>
+    <LetterStatus fx:id="ls2" rightPlace="false"/>
+</fx:root>

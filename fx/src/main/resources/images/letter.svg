@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+    <style><![CDATA[/* * THIS FILE IS GENERATED - DO NOT EDIT */ tspan.am { font-weight:bold; font-size:32px; line-height:125%; font-family:Arial; text-align:center; text-anchor:middle; fill:#FFFFFF; } rect.am { fill:#656565; } rect.amborder { fill:#FFFFFF; } rect.amborder2 { fill:#FFFFFF; }]]></style>
+    <rect class="amborder" width="100" height="100" x="0" y="0" />
+    <rect class="am" width="90" height="90" x="5" y="5" />
+    <text>
+        <tspan class="am" x="50" y="62">UNK</tspan>
+    </text>
+</svg>
