@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'jbr-root',
+  selector: 'exp-root',
   templateUrl: './app.component.html'
 })
 

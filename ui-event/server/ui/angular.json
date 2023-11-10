@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "jbrmmg": {
+    "exp": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -29,59 +29,7 @@
             "scripts": []
           },
           "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            },
-            "debug": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.debug.ts"
-                }
-              ],
-              "optimization": false,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            },
             "debug-web": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
               "optimization": false,
               "outputHashing": "all",
               "sourceMap": false,
@@ -103,24 +51,24 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "jbrmmg:build"
+            "browserTarget": "exp:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "jbrmmg:build:production"
+              "browserTarget": "exp:build:production"
             },
             "debug" : {
-              "browserTarget": "jbrmmg:build:debug"
+              "browserTarget": "exp:build:debug"
             },
             "debug-web" : {
-              "browserTarget": "jbrmmg:build:debug-web"
+              "browserTarget": "exp:build:debug-web"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jbrmmg:build"
+            "browserTarget": "exp:build"
           }
         },
         "test": {
@@ -154,36 +102,9 @@
           }
         }
       }
-    },
-    "jbrmmg-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "jbrmmg:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "jbrmmg:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        }
-      }
     }
   },
-  "defaultProject": "jbrmmg",
+  "defaultProject": "exp",
   "cli": {
     "analytics": false
   }
