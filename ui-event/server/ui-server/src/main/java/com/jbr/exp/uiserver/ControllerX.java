@@ -16,13 +16,20 @@ import java.time.format.DateTimeFormatter;
 public class ControllerX {
     private static final Logger LOG = LoggerFactory.getLogger(ControllerX.class);
 
-    @GetMapping(path="/int/file-updates",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<String>> fileUpdate() {
-        try {
-            MonitorInstance monitor = new MonitorInstance();
+    private static Flux<ServerSentEvent<String>> result = null;
 
-            return Flux.interval(Duration.ofSeconds(5))
-                    .map(monitor::test);
+    @GetMapping(path="/int/file-updates",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> fileUpdate(@RequestParam(value = "id", defaultValue = "UNKN") String id) {
+        try {
+            LOG.info("ID {}",id);
+            if(result == null) {
+                MonitorInstance monitor = new MonitorInstance();
+
+                result = Flux.interval(Duration.ofSeconds(5))
+                        .map(monitor::test);
+            }
+
+            return result;
         } catch(Exception e) {
             LOG.error(e.getMessage());
         }
