@@ -10,6 +10,11 @@ export class ReminderRequest {
     providedIn: 'root'
 })
 export class WelcomeService {
+//    private readonly update;
+
     constructor(private readonly http: HttpClient) {
+//        this.update = new EventSource('exp/file-updates');
+
+//        this.update.addListener('message', e => { console.log(e.data) });
     }
 }

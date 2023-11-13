@@ -1,6 +1,10 @@
 {
-  "/exp": {
-    "target": "http://localhost:8080/jbr/int",
+  "/backup": {
+    "target": "http://localhost:12013/jbr/int",
+    "secure": false
+  },
+  "/int": {
+    "target": "http://localhost:8081/jbr",
     "secure": false
   }
 }

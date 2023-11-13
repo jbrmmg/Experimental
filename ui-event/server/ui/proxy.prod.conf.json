@@ -1,6 +1,6 @@
 {
   "/exp": {
-    "target": "http://localhost:8080/jbr/int",
+    "target": "http://localhost:8081/jbr",
     "secure": false
   }
 }
