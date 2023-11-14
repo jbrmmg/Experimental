@@ -40,7 +40,6 @@ describe('WelcomeService', () => {
     it('should call reminder', () => {
         app.textData1 = 'x';
         app.textData2 = 'y';
-        app.onClick();
 
         const req = httpMock.expectOne('/podcast/reminder');
         req.flush('');
@@ -50,7 +49,6 @@ describe('WelcomeService', () => {
     it('should call reminder and fail', () => {
         app.textData1 = 'x';
         app.textData2 = 'y';
-        app.onClick();
 
         const req = httpMock.expectOne('/podcast/reminder');
         req.flush('', { status: 404, statusText: 'Invalid'});
