@@ -28,7 +28,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   callback(e: MessageEvent) : void {
       this.textData1 = e.data;
       this.textData2 = e.data;
-      console.log(e.data);
+//      console.log(e.data);
   }
 
   connect(): void {
