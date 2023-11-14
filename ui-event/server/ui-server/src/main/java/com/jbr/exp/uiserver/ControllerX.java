@@ -16,25 +16,23 @@ import java.time.format.DateTimeFormatter;
 public class ControllerX {
     private static final Logger LOG = LoggerFactory.getLogger(ControllerX.class);
 
-    private final Flux<ServerSentEvent<String>> generator;
+    private final Flux<ServerSentEvent<Response>> generator;
 
     public ControllerX() {
         generator = Flux.interval(Duration.ofSeconds(1))
                 .map(this::test);
     }
 
-    private ServerSentEvent<String> test(long a) {
+    private ServerSentEvent<Response> test(long a) {
         LOG.info("test {}",this);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
-
-        return ServerSentEvent.<String> builder()
-                .data("blah! " + LocalDateTime.now().format(formatter))
+        return ServerSentEvent.<Response> builder()
+                .data(new Response(LocalDateTime.now()))
                 .build();
     }
 
     @GetMapping(path="/int/file-updates",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<ServerSentEvent<String>> fileUpdate(@RequestParam(value = "id", defaultValue = "UNKN") String id) {
+    public Flux<ServerSentEvent<Response>> fileUpdate(@RequestParam(value = "id", defaultValue = "UNKN") String id) {
         try {
             LOG.info("ID {}",id);
             return generator;

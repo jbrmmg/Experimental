@@ -11,6 +11,7 @@ import { ModalModule} from 'ngx-bootstrap/modal';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
       {path: '**', redirectTo: 'welcome', pathMatch: 'full'}
     ])
   ],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

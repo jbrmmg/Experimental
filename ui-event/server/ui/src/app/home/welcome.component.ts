@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DatePipe } from '@angular/common'
+import {Response} from './welcome.response-component'
 import {WelcomeService} from './welcome.service';
 
 @Component({
@@ -11,7 +13,8 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   source: EventSource;
 //  listener : any;
 
-  constructor(private readonly _welcomeService: WelcomeService) {
+  constructor(private readonly _welcomeService: WelcomeService,
+              private datepipe : DatePipe) {
     this.source = new EventSource('int/file-updates?id=cap');
     this.source.addEventListener('message', this.callback.bind(this));
     window.addEventListener('beforeunload', this.handleBeforeUnload.bind(this));
@@ -26,9 +29,11 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   }
 
   callback(e: MessageEvent) : void {
+      let response : Response = JSON.parse(e.data);
+
       this.textData1 = e.data;
-      this.textData2 = e.data;
-//      console.log(e.data);
+      this.textData2 = this.datepipe.transform(response.updateTime,'HH:mm:ss');
+//      console.log(response.updateTime);
   }
 
   connect(): void {
