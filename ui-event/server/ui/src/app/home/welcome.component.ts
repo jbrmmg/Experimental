@@ -34,7 +34,7 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   connect(): void {
 //    this.listener = function (e) {this.textData1 = e.data;}
 
-    this.source = new EventSource('int/file-updates');
+    this.source = this._welcomeService.fileUpdateSource();
 //    this.source.addEventListener('message', e => {
 //      this.textData1 = e.data;
 //      console.log(e.data)

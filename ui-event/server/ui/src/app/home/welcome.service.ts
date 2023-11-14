@@ -17,4 +17,8 @@ export class WelcomeService {
 
 //        this.update.addListener('message', e => { console.log(e.data) });
     }
+
+    fileUpdateSource() : EventSource {
+        return new EventSource("int/file-updates");
+    }
 }
