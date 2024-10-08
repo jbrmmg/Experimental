@@ -1,6 +1,7 @@
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -224,6 +225,35 @@ class CrosswordImage{
         lookup.put("*  **  *****   *   *****   *   ******  *** ******  *** ******  *** *****",11); // 5-3 12-7 13-7 7-9 5-10 7-10 4-11 7-13 3-15
         lookup.put("**   *********   ********    *******      ******      *********  *******",4); // 7-1 14-1
         lookup.put("*    ********    ******** ** **********  ********   *********  *********",2); // 15-3 3-4 10-5 13-5 5-7 10-7 1-11 8-11 6-13 10-13 5-14
+        lookup.put("   **    ***   *  *  ****  ***   ****  ***    ***  *  **  **         ***",13); // 10-1
+        lookup.put("*    *******  **  *******     *******     *******    ********    *******",9); // 14-1
+        lookup.put("*    **   *** ** **   *****  *    ***   *      **  **      *      **  **",24); // 4-1
+        lookup.put("   **   ****   **   *****  *    *****  *    ****        ****    **  ****",14); // 2-2 7-4 5-6 4-12 1-14 4-15
+        lookup.put("         ***  *  *   *****   *   ****   *  * ***         ***         ***",23); // 6-2 6-3 6-6 8-9 7-12 15-14 14-15
+        lookup.put("   *    ****   *    *****  ***  *****  **  *****        ****        ****",12); // 4-13
+        lookup.put("   *********   **********  **********  *********    ********    ********",1); // 6-1 10-2 2-3 8-5 1-6 7-6 8-7 11-8 10-9 1-10 10-12 6-14 10-14
+        lookup.put("     *********  **********  **********  *********  **********  *********",7); // 14-2 2-4 6-5 12-7 8-8 15-8 8-11 12-11 11-12 14-12 3-14
+        lookup.put("   *    ****   *  * *****  *  * *****  *  * ****        ****    *   ****",18); // 10-13 5-14 9-14
+        lookup.put("         ***  *    *******       ****   **** ***         ***         ***",25); // 2-8 6-15
+        lookup.put("         ***  *      *****       ****   *  * ***         ***     *   ***",26); // 5-2 13-2 3-4 2-7 9-8 13-8 12-10 14-11 6-12 13-12
+        lookup.put("         ***  *      *****   **  ****   **  ****         ***         ***",22); // 2-1 4-4 5-4 4-5 14-7 12-8 11-10 10-11 1-12 12-14
+        lookup.put("     *   ***  *  *   *****       ****   *    ***         ***     **  ***",24); // 4-1 15-2 12-12 15-12 14-13
+        lookup.put("   *    ****   *    *****  *    *****  *  * ****        ****        ****",18); // 10-3
+        lookup.put("   *    ****   *    *****  *    *****  *  * ****        ****    *   ****",16); // 3-12 10-15
+        lookup.put("   *    ****   **   *****  **   *****  *  * ****        ****        ****",13); // 10-1 3-2 3-8 10-8 14-9 6-10 13-10
+        lookup.put("   *    ****   ***  *****  **  ******  **  *****    *  *****    *  *****",17); // 12-2 10-5 9-6 13-6 6-11 7-14 11-14
+        lookup.put("*    *******     *******     *******  *  ********    ********    *******",6); // 1-2 12-3 10-4 4-6 4-8 14-8 8-10 5-12 2-13 12-13
+        lookup.put("   *    ****   *  *******  *    *****  **** ****        ****        ****",15); // 7-2 11-4 15-4 2-5 14-6 2-10 4-10 10-10 15-10 2-15 12-15
+        lookup.put("     *******  *  *******     ********    ********    ********   ********",9); // 14-1 1-4 3-10 14-10
+        lookup.put("**  *********   *********   ********     *******     ********** ********",4); // 12-1 4-3 14-3 6-4 14-4 10-6 12-6 15-6 1-8 2-9 4-11 2-14 4-14 14-14
+        lookup.put("     ********    ********    *******  *  *******     ********    *******",8); // 4-2 7-10 2-12 9-12
+        lookup.put("*    ******** **********     **********  *******     ********    *******",5); // 2-6 3-6
+        lookup.put("     *********   *********   *******  *  *******     ********    *******",3); // 11-2 13-4 12-5 6-7 7-8
+        lookup.put("        ****  *   * ******   ** *****   *** ****         ***         ***",21); // 13-14
+        lookup.put("         ***  *    * *****     * ****   *  * ***         ***     *   ***",20); // 12-4
+        lookup.put("     *******  *  *********   ********   ********     *******     *******",2); // 9-2 9-4 5-8 6-8 6-13
+        lookup.put("   *    ****   *  * *****  *    *****  *    ****        ****        ****",19); // 8-6 4-9
+        lookup.put("   *   *****   *   ******  **  ******  **  *****        ****        ****",11); // 9-10
     }
 
     public int getWidth() {
@@ -297,6 +327,16 @@ class CrosswordImage{
                     id.append(" ");
                 }
             }
+        }
+
+        // Generate a set of individual images.
+        try {
+            BufferedImage subImage = this.image.getSubimage(xDetail.start, yDetail.start, xDetail.end - xDetail.start, yDetail.end - yDetail.start);
+
+            File outputFile = new File("/home/jason/Downloads/Crossword_" + String.format("%02d",x+1) + "_" + String.format("%02d",y+1) + ".png");
+            ImageIO.write(subImage, "png", outputFile);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
 
 //        System.out.println("|" + id + "|");
@@ -373,27 +413,48 @@ public class OcrTest {
         System.out.println(line);
     }
 
+    private static File[] findFiles(File directory, String pattern) {
+        if(!directory.isDirectory()) {
+            System.out.println("Not a directory: " + directory);
+            return null;
+        }
+
+        return directory.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.matches(pattern);
+            }
+        });
+    }
+
+    private static void deleteFilesMatchingPattern(File directory, String pattern) {
+        File[] files = findFiles(directory, pattern);
+
+        if(files != null) {
+            for (File file : files) {
+                if (file.delete()) {
+                    System.out.println("Deleted file: " + file);
+                } else {
+                    System.out.println("Failed to deleted file: " + file);
+                }
+            }
+        }
+    }
+
+    private static String findScreenShot(File directory, String pattern) {
+        File[] files = findFiles(directory, pattern);
+
+        if(files != null) {
+            // Just return the first file.
+            if(files.length > 0) {
+                return files[0].getAbsolutePath();
+            }
+        }
+
+        return null;
+    }
+
     public static void main(String[] args) {
-        /*        // Path to your image file
-        File imageFile = new File("/home/jason/Downloads/Crossword.png");
-
-        // Initialize Tesseract instance
-        Tesseract tesseract = new Tesseract();
-
-        // Set tessdata folder if not in classpath (optional)
-        tesseract.setDatapath("/home/jason/Source/GitHub/Working/Experimental/exp/target/testdata");
-
-        try {
-            // Perform OCR on the image
-            String result = tesseract.doOCR(imageFile);
-
-            // Output the OCR result
-            System.out.println("OCR Result: ");
-            System.out.println(result);
-
-        } catch (TesseractException e) {
-            System.err.println(e.getMessage());
-        }*/
         // Details of the image.
         int blackBorderWidth = 2;
         int interLineWidth = 2;
@@ -405,8 +466,19 @@ public class OcrTest {
         // Need to find the
 
         try {
+            // Delete files names Crossword_x_y.png
+            File directory = new File("/home/jason/Downloads");
+            deleteFilesMatchingPattern(directory,"^Crossword_\\d\\d_\\d\\d\\.png$");
+
+            String filename = findScreenShot(directory,"^Screenshot from \\d\\d\\d\\d-\\d\\d-\\d\\d \\d\\d-\\d\\d-\\d\\d\\.png$");
+            if(filename == null) {
+                System.out.println("No screenshot found");
+                return;
+            }
+            System.out.println(filename);
+
             // Load the image from file
-            File imageFile = new File("/home/jason/Downloads/Crossword.png");
+            File imageFile = new File(filename);
             BufferedImage image = ImageIO.read(imageFile);
 
             // Get image dimensions
