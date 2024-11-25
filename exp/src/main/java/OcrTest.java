@@ -255,7 +255,7 @@ class CrosswordImage{
         return height;
     }
 
-    public boolean getPixel(int x, int y) {
+    public boolean                                                                                                                                                                                                                                                                                                      getPixel(int x, int y) {
         int rgb = image.getRGB(x, y);
 
         return rgb == -1;
